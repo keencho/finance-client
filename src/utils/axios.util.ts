@@ -1,6 +1,8 @@
 import Path from '@/models/path.model';
 import axios, {AxiosResponse, Method} from 'axios';
 import ResponseError from '@/error/response.error';
+import {setRecoil} from '@/components/common/RecoilNexus';
+import SpinnerAtom from '@/recoil/spinner.atom';
 
 export default class AxiosUtil {
   static BASE_PATH = Path.Api.BASE_PATH;
@@ -34,6 +36,8 @@ export default class AxiosUtil {
   
   public static async responseHandler(request: Promise<any>, onSuccess?: any, onFailure?: any): Promise<void> {
     try {
+      setRecoil(SpinnerAtom, true);
+      
       const res = await request;
       
       if (res.success === false) {
@@ -47,6 +51,8 @@ export default class AxiosUtil {
       if (typeof onFailure === 'function') {
         onFailure(e.message);
       }
+    } finally {
+      setRecoil(SpinnerAtom, false)
     }
   }
 }

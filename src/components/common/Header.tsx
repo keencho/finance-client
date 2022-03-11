@@ -11,39 +11,34 @@ import AxiosUtil from '@/utils/axios.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
-import SpinnerAtom from '@/recoil/spinner.atom';
 
 const Header = (): JSX.Element => {
   
   const accountModel = useRecoilValue<AuthAccountModel>(AccountAtom);
   const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom);
   const setToastState = useSetRecoilState<ToastRequestModel | undefined>(ToastAtom);
-  const setShowSpinner = useSetRecoilState<boolean>(SpinnerAtom);
   
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const navigate = useNavigate();
   
   const onClickBtnLogout = async() => {
-    // const onSuccess = async() => {
-    //   await AccountService.checkAndSetAuth(setAccountModel)
-    // }
-    //
-    // const onFailure = (message: string) => {
-    //   setToast({
-    //     type: ToastTypeModel.ERROR,
-    //     message: message
-    //   })
-    // }
-    //
-    // await AxiosUtil.responseHandler(
-    //   AccountService.logout(),
-    //   onSuccess,
-    //   onFailure
-    // )
-  
-    setShowSpinner(true)
-    await AccountService.test()
-    setShowSpinner(false)
+    const onSuccess = async() => {
+      await AccountService.checkAndSetAuth(setAccountModel)
+    }
+
+    const onFailure = async(message: string) => {
+      await AccountService.checkAndSetAuth(setAccountModel)
+      setToastState({
+        type: ToastTypeModel.ERROR,
+        message: message
+      })
+    }
+
+    await AxiosUtil.responseHandler(
+      AccountService.logout(),
+      onSuccess,
+      onFailure
+    )
   }
   
   useEffect(() => {

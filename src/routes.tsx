@@ -1,5 +1,9 @@
-import React, { Fragment } from 'react'
-import { Routes as RouterRoutes, Route } from 'react-router-dom'
+import React, {Fragment, useEffect} from 'react'
+import {Route, Routes as RouterRoutes} from 'react-router-dom'
+import {useRecoilValue} from 'recoil';
+import AuthAccountModel from '@/models/auth/auth-account.model';
+import AccountAtom from '@/recoil/account.atom';
+import AuthStatus from '@/models/auth/auth-status.model';
 
 const BASIC: Record<string, { [key: string]: any }> = import.meta.globEager('/src/pages/(_app|404).tsx')
 const COMPONENTS: Record<string, { [key: string]: any }> = import.meta.globEager('/src/pages/**/[a-z[]*.tsx')
@@ -18,18 +22,21 @@ const components = Object.keys(COMPONENTS).map((component) => {
 	return { path, component: COMPONENTS[component].default }
 })
 
-export const Routes = () => {
-	const App = basics?.['_app'] || Fragment
+export const Routes = (): JSX.Element => {
 	const NotFound = basics?.['404'] || Fragment
 	
+	const accountModel = useRecoilValue<AuthAccountModel>(AccountAtom);
+	
 	return (
-		<App>
-			<RouterRoutes>
-				{components.map(({ path, component: Component = Fragment }) => (
-					<Route key={path} path={path} element={Component()} />
-				))}
-				<Route path="*" element={NotFound()} />
-			</RouterRoutes>
-		</App>
+		<RouterRoutes>
+			accountModel.authStatus === AuthStatus.READY
+				?
+					<></>
+				:
+						{components.map(({ path, component: Component = Fragment }) => (
+							<Route key={path} path={path} element={Component()} />
+						))}
+						<Route path="*" element={NotFound()} />
+		</RouterRoutes>
 	)
 }

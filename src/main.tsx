@@ -8,11 +8,13 @@ import {Routes} from '@/routes';
 import Auth from '@/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Spinner from '@/components/common/Spinner';
+import RecoilNexus from '@/components/common/RecoilNexus';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
+      <RecoilNexus />
       <Auth>
         <BrowserRouter>
           <Spinner />
