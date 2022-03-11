@@ -1,0 +1,44 @@
+.container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+	overflow: auto;
+	display: none;
+
+	&.show {
+		display: block;
+	}
+
+	.background {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1030;
+		transition: opacity .15s linear;
+		opacity: 0.4;
+		background-color: #ffffff;
+
+		&.notNeededOpacity {
+			opacity: 0;
+		}
+	}
+
+	.mark {
+		position: fixed;
+		width: 400px;
+		height: 25px;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -200px;
+		z-index: 1040;
+		transition: opacity .15s linear;
+		opacity: 1;
+		text-align: center;
+	}
+}

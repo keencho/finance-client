@@ -15,12 +15,12 @@ const LoginPage = (): JSX.Element => {
 	const navigate = useNavigate()
 	
 	const setToastRequest = useSetRecoilState<ToastRequestModel | undefined>(ToastAtom);
-	const setAccount = useSetRecoilState<AuthAccountModel>(AccountAtom)
+	const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom)
 	
 	const login = async(loginId: string, password: string) => {
 		
 		const onSuccess = async() => {
-			await AccountService.checkAndSetAuth(setAccount);
+			await AccountService.checkAndSetAuth(setAccountModel);
 			navigate(Path.Web.INDEX)
 		}
 		

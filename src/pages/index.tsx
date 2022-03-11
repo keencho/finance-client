@@ -1,7 +1,12 @@
+import Header from '@/components/common/Header';
+
 const Index = (): JSX.Element => {
   
   return (
-    <div>개느려;</div>
+    <>
+      <Header />
+      <div>개느려;</div>
+    </>
   )
 }
 

@@ -6,7 +6,8 @@ export default class Path {
 		
 		// 인증 & 계정
 		CHECK_AUTH: '/account/v1/check-auth',		// 로그인 여부 확인
-		LOGIN: '/account/v1/login'							// 로그인
+		LOGIN: '/account/v1/login',							// 로그인
+		LOGOUT: '/account/v1/logout',						// 로그아웃
 	}
 	
 	// web path

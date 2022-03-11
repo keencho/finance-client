@@ -1,11 +1,14 @@
 import AxiosUtil from '@/utils/axios.util';
 import Path from '@/models/path.model';
 import {SetterOrUpdater} from 'recoil';
-import AccountAtom from '@/recoil/account.atom';
 import AuthAccountModel from '@/models/auth/auth-account.model';
 import AuthStatus from '@/models/auth/auth-status.model';
 
 export default class AccountService {
+  
+  static async test(): Promise<any> {
+    await AxiosUtil.request('POST', Path.Api.CHECK_AUTH)
+  }
   
   static async checkAndSetAuth(setAccount: SetterOrUpdater<AuthAccountModel>): Promise<void> {
   
@@ -40,5 +43,9 @@ export default class AccountService {
       password: password
     }
     return await AxiosUtil.request('POST', Path.Api.LOGIN, params);
+  }
+  
+  static async logout(): Promise<any> {
+    return await AxiosUtil.request('POST', Path.Api.LOGOUT);
   }
 }
