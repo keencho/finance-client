@@ -1,18 +1,12 @@
 import style from '@/styles/login.module.scss';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import {blue} from '@mui/material/colors';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import {useState} from 'react';
 import StringUtils from '@/utils/string.util';
-import ToastTypeModel from '@/models/toast-type.model';
+import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import {useSetRecoilState} from 'recoil';
+import {Button, FloatingLabel, Form} from 'react-bootstrap';
+import clsx from 'clsx';
+import {IoLogInOutline} from 'react-icons/all';
 
 interface LoginProps {
 	login: (loginId: string, password: string) => Promise<void>
@@ -25,9 +19,7 @@ const Login = (props: LoginProps): JSX.Element => {
 	
 	const setToastRequest = useSetRecoilState(ToastAtom);
 	
-	const onSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		
+	const onClick = async() => {
 		if (StringUtils.hasText(loginId) === false || StringUtils.hasText(password) === false) {
 			setToastRequest({
 				type: ToastTypeModel.ERROR,
@@ -41,53 +33,35 @@ const Login = (props: LoginProps): JSX.Element => {
 	
 	return (
 		<div className={style.container}>
-			<Container component="main" maxWidth="xs">
-				<CssBaseline/>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-					}}
-				>
-					<Avatar sx={{m: 1, bgcolor: blue[600]}}>
-						<LockOutlinedIcon/>
-					</Avatar>
-					<Typography component="h1" variant="h5">
-						로그인
-					</Typography>
-					<Box component="form" onSubmit={onSubmit} noValidate sx={{mt: 1}}>
-						<TextField
-							margin="normal"
-							value={loginId}
-							onChange={event => setLoginId(event.target.value)}
-							required
-							fullWidth
-							label="로그인 ID"
-							autoComplete="loginId"
-							autoFocus
-						/>
-						<TextField
-							margin="normal"
-							value={password}
-							onChange={event => setPassword(event.target.value)}
-							required
-							fullWidth
-							label="비밀번호"
-							type="password"
-							autoComplete="current-password"
-						/>
-						<Button
-							type="submit"
-							fullWidth
-							variant="contained"
-							sx={{mt: 3, mb: 2}}
-						>
-							로그인
-						</Button>
-					</Box>
-				</Box>
-			</Container>
+			<div className={style.iconLogin}>
+				<IoLogInOutline size={'70'} />
+			</div>
+			<FloatingLabel
+				controlId="floatingInput"
+				label="아이디"
+				className="mb-3"
+			>
+				<Form.Control
+					type="email"
+					placeholder="id"
+					value={loginId}
+					onChange={(e) => setLoginId(e.target.value)}
+				/>
+			</FloatingLabel>
+			<FloatingLabel
+				controlId="floatingPassword"
+				label="비밀번호"
+			>
+				<Form.Control
+					type="password"
+					placeholder="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+				/>
+			</FloatingLabel>
+			<div className={clsx("d-grid gap-2", style.btnLogin)}>
+				<Button variant="primary" onClick={onClick}>로그인</Button>
+			</div>
 		</div>
 	)
 }

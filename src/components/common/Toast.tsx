@@ -1,21 +1,22 @@
 import {useEffect, useState} from 'react';
-import ToastRequestModel from '@/models/toast-request.model';
+import ToastRequestModel from '@/models/recoil/toast-request.model';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import ToastAtom from '@/recoil/toast.atom';
 import style from '@/styles/toast.module.scss'
-import ToastTypeModel from '@/models/toast-type.model';
-import {Alert, AlertColor, AlertTitle} from '@mui/material';
+import ToastTypeModel from '@/models/recoil/toast-type.model';
+import {Alert} from 'react-bootstrap';
+import {FaInfoCircle} from 'react-icons/all';
 
 interface ToastProps {
 	show: boolean,
 	title: string,
-	severity: AlertColor | undefined,
+	variant: string,
 	message: string,
 }
 
 interface ToastType {
 	title: string,
-	severity: AlertColor | undefined
+	severity: string
 }
 
 const Toast = (): JSX.Element => {
@@ -23,13 +24,14 @@ const Toast = (): JSX.Element => {
 	const [toastProps, setToastProps] = useState<ToastProps>({
 		show: false,
 		title: '',
-		severity: undefined,
+		variant: '',
 		message: ''
 	});
 	
 	const toastRequest: ToastRequestModel | undefined = useRecoilValue(ToastAtom);
 	const setToastRequest = useSetRecoilState(ToastAtom);
 	
+	// https://react-bootstrap.github.io/components/alerts/
 	const getToastType = (model: ToastTypeModel) : ToastType => {
 		switch (model) {
 			case ToastTypeModel.SUCCESS:
@@ -50,7 +52,7 @@ const Toast = (): JSX.Element => {
 			case ToastTypeModel.ERROR:
 				return {
 					title: '에러',
-					severity: 'error'
+					severity: 'danger'
 				}
 		}
 	}
@@ -65,7 +67,7 @@ const Toast = (): JSX.Element => {
 				show: true,
 				message: toastRequest.message,
 				title: toastType.title,
-				severity: toastType.severity
+				variant: toastType.severity
 			})
 		}
 		
@@ -78,7 +80,7 @@ const Toast = (): JSX.Element => {
 					show: false,
 					message: '',
 					title: '',
-					severity: undefined
+					variant: ''
 				})
 			}, 2500)
 		}
@@ -101,9 +103,14 @@ const Toast = (): JSX.Element => {
 			}}
 			className={style.container}
 		>
-			<Alert severity={toastProps.severity}>
-				<AlertTitle>{toastProps.title}</AlertTitle>
-				{toastProps.message}
+			<Alert variant={toastProps.variant}>
+				<p>
+					<FaInfoCircle/>
+					<span style={{ marginLeft: '10px' }}>
+						{toastProps.title}
+					</span>
+				</p>
+				<span>{toastProps.message}</span>
 			</Alert>
 		</div>
 	)

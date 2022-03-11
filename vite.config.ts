@@ -10,5 +10,12 @@ export default defineConfig({
       // @ts-ignore
       { find: '@', replacement: path.resolve(__dirname, './src') }
     ]
+  },
+  server: {
+    proxy: {
+      '/api/finance': {
+        target: 'http://localhost:8000'
+      }
+    }
   }
 })
