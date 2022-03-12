@@ -1,12 +1,22 @@
 import LayoutProps from '@/models/element/layout-props.model';
-import {useEffect} from 'react';
+import {ReactNode, useEffect} from 'react';
 import AccountService from '@/services/account.service';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 import AccountAtom from '@/recoil/account.atom';
 import AuthAccountModel from '@/models/auth/auth-account.model';
+import AuthStatus from '@/models/auth/auth-status.model';
 
 const Auth = ({ children }: LayoutProps): JSX.Element => {
   const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom);
+  const accountModel = useRecoilValue<AuthAccountModel>(AccountAtom);
+  
+  const getElement = (): JSX.Element => {
+    if (accountModel.authStatus === AuthStatus.READY) {
+      return <></>
+    }
+    
+    return <>{children}</>
+  }
   
   useEffect(() => {
     async function doTask() {
@@ -16,11 +26,7 @@ const Auth = ({ children }: LayoutProps): JSX.Element => {
     doTask()
   }, [])
   
-  return (
-    <>
-      {children}
-    </>
-  )
+  return getElement()
   
 }
 

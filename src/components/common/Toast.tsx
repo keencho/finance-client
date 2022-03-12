@@ -9,7 +9,6 @@ import {FaInfoCircle} from 'react-icons/all';
 
 interface ToastProps {
 	show: boolean,
-	title: string,
 	variant: string,
 	message: string,
 }
@@ -23,7 +22,6 @@ const Toast = (): JSX.Element => {
 	
 	const [toastProps, setToastProps] = useState<ToastProps>({
 		show: false,
-		title: '',
 		variant: '',
 		message: ''
 	});
@@ -66,7 +64,6 @@ const Toast = (): JSX.Element => {
 			setToastProps({
 				show: true,
 				message: toastRequest.message,
-				title: toastType.title,
 				variant: toastType.severity
 			})
 		}
@@ -79,7 +76,6 @@ const Toast = (): JSX.Element => {
 				setToastProps({
 					show: false,
 					message: '',
-					title: '',
 					variant: ''
 				})
 			}, 2500)
@@ -103,14 +99,9 @@ const Toast = (): JSX.Element => {
 			}}
 			className={style.container}
 		>
-			<Alert variant={toastProps.variant}>
-				<p>
-					<FaInfoCircle/>
-					<span style={{ marginLeft: '10px' }}>
-						{toastProps.title}
-					</span>
-				</p>
-				<span>{toastProps.message}</span>
+			<Alert variant={toastProps.variant} style={{ display: 'flex', alignItems: 'center'}}>
+				<FaInfoCircle/>
+				<span style={{ marginLeft: '10px' }}>{toastProps.message}</span>
 			</Alert>
 		</div>
 	)

@@ -24,6 +24,10 @@ const Header = (): JSX.Element => {
   const onClickBtnLogout = async() => {
     const onSuccess = async() => {
       await AccountService.checkAndSetAuth(setAccountModel)
+      setToastState({
+        type: ToastTypeModel.SUCCESS,
+        message: '로그아웃이 완료되었습니다.'
+      })
     }
 
     const onFailure = async(message: string) => {
@@ -63,6 +67,7 @@ const Header = (): JSX.Element => {
             isAuthenticated === true
               ?
               <>
+                <span style={{ color: '#fff', marginRight: '30px'}}>{accountModel.account?.name}</span>
                 <Button variant="outline-light" onClick={onClickBtnLogout}>
                   로그아웃
                 </Button>

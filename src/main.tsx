@@ -15,10 +15,10 @@ ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
       <RecoilNexus />
+      <Spinner />
+      <Toast />
       <Auth>
         <BrowserRouter>
-          <Spinner />
-          <Toast />
           <Routes />
         </BrowserRouter>
       </Auth>

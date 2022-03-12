@@ -25,18 +25,14 @@ const components = Object.keys(COMPONENTS).map((component) => {
 export const Routes = (): JSX.Element => {
 	const NotFound = basics?.['404'] || Fragment
 	
-	const accountModel = useRecoilValue<AuthAccountModel>(AccountAtom);
-	
 	return (
 		<RouterRoutes>
-			accountModel.authStatus === AuthStatus.READY
-				?
-					<></>
-				:
-						{components.map(({ path, component: Component = Fragment }) => (
-							<Route key={path} path={path} element={Component()} />
-						))}
-						<Route path="*" element={NotFound()} />
+			{
+				components.map(({ path, component: Component = Fragment }) => (
+					<Route key={path} path={path} element={Component()} />
+				))
+			}
+			<Route path="*" element={NotFound()} />
 		</RouterRoutes>
 	)
 }
