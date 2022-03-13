@@ -7,6 +7,7 @@ import {useSetRecoilState} from 'recoil';
 import {Button, FloatingLabel, Form} from 'react-bootstrap';
 import clsx from 'clsx';
 import {IoLogInOutline} from 'react-icons/all';
+import HtmlEventUtil from '@/utils/html-event.util';
 
 interface LoginProps {
 	login: (loginId: string, password: string) => Promise<void>
@@ -56,6 +57,7 @@ const Login = (props: LoginProps): JSX.Element => {
 					type="password"
 					placeholder="password"
 					value={password}
+					onKeyPress={(e) => HtmlEventUtil.inputEnterEventHandler(e, onClick)}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 			</FloatingLabel>

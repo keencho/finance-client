@@ -1,11 +1,10 @@
 import Base from '@/components/common/Base';
-import Main from '@/components/Main';
 
 const MainPage = (): JSX.Element => {
   
   return (
     <Base>
-      <Main />
+      <div style={{ fontSize: '50px' }}>음2asdasd</div>
     </Base>
   )
 }

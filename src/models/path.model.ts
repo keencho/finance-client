@@ -13,7 +13,7 @@ export default class Path {
 	// web path
 	static Web = {
 		INDEX: '',					// 인덱스
-		LOGIN: 'login'			// 로그인
+		LOGIN: '/login'			// 로그인
 		
 	}
 	

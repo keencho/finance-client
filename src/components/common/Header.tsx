@@ -11,6 +11,7 @@ import AxiosUtil from '@/utils/axios.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
+import style from '@/styles/header.module.scss'
 
 const Header = (): JSX.Element => {
   
@@ -55,13 +56,12 @@ const Header = (): JSX.Element => {
   }, [accountModel])
   
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" className={style.container}>
       <Container>
         <Navbar.Brand href="#home">Finance</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <Nav.Link>코인</Nav.Link>
+          <Nav.Link>주식</Nav.Link>
         </Nav>
           {
             isAuthenticated === true
