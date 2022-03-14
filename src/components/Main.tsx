@@ -1,7 +1,8 @@
 import ApexCharts from 'react-apexcharts'
+import {ApexOptions} from 'apexcharts';
 
 const Main = (): JSX.Element => {
-	const data: any = {
+	const data: ApexOptions = {
 		series: [{
 			data: [{
 				x: new Date(1538778600000),
@@ -245,7 +246,9 @@ const Main = (): JSX.Element => {
 				},
 			]
 		}],
-		options: {
+	};
+	
+	const options: ApexOptions =  {
 			chart: {
 				type: 'candlestick',
 				background: 'transparent',
@@ -266,11 +269,10 @@ const Main = (): JSX.Element => {
 					enabled: true
 				}
 			}
-		},
-	};
+		};
 	
 	
-	return <ApexCharts type={'candlestick'} series={data.series} options={data.options} />
+	return <ApexCharts type={'candlestick'} series={data.series} options={options} />
 }
 
 export default Main

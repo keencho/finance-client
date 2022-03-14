@@ -6,10 +6,6 @@ import AuthStatus from '@/models/auth/auth-status.model';
 
 export default class AccountService {
   
-  static async test(): Promise<any> {
-    await AxiosUtil.request('POST', Path.Api.CHECK_AUTH)
-  }
-  
   static async checkAndSetAuth(setAccount: SetterOrUpdater<AuthAccountModel>): Promise<void> {
   
     const onSuccess = (data: any) => {
