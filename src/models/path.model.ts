@@ -8,6 +8,9 @@ export default class Path {
 		CHECK_AUTH: '/account/v1/check-auth',		// 로그인 여부 확인
 		LOGIN: '/account/v1/login',							// 로그인
 		LOGOUT: '/account/v1/logout',						// 로그아웃
+		
+		// 코인
+		BULL_MARKET: '/coin/v1/bull-market'     // 상승장 마켓 불러오기
 	}
 	
 	// web path
