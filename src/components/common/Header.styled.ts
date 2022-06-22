@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Navbar} from 'react-bootstrap';
 
 export const StyledNavbar = styled(Navbar)`
-  background-color: #2d3847;
+  background-color: ${props => props.theme.color.headerBackgroundColor};
 `
 
 export const StyledNavbarBrand = styled(Navbar.Brand)`

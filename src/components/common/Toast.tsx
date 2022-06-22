@@ -4,9 +4,10 @@ import {useRecoilValue, useSetRecoilState} from 'recoil';
 import ToastAtom from '@/recoil/toast.atom';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import {Alert} from 'react-bootstrap';
-import {FaInfoCircle} from 'react-icons/all';
 import {Container} from '@/components/common/Toast.styled';
 import classNames from 'classnames';
+import Icon from '@/components/common/Icon';
+import {faCircleInfo} from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 
 interface ToastProps {
 	show: boolean,
@@ -95,7 +96,7 @@ const Toast = (): JSX.Element => {
 	return (
 		<Container show={toastProps.show}>
 			<Alert variant={toastProps.variant} className={classNames('d-flex', 'align-items-center')}>
-				<FaInfoCircle/>
+				<Icon icon={faCircleInfo} color={'inherit'} size={'1x'} />
 				<span className={'ms-2'}>{toastProps.message}</span>
 			</Alert>
 		</Container>

@@ -3,11 +3,12 @@ import StringUtils from '@/utils/string.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import {useSetRecoilState} from 'recoil';
-import {Button, FloatingLabel, Form} from 'react-bootstrap';
-import {IoLogInOutline} from 'react-icons/all';
-import HtmlEventUtil from '@/utils/html-event.util';
 import classNames from 'classnames';
 import {Container} from '@/components/Login.styled';
+import Icon from '@/components/common/Icon';
+import {faArrowRightToBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightToBracket';
+import Button from '@/components/common/element/Button';
+import Input from '@/components/common/element/Input';
 
 interface LoginProps {
 	login: (loginId: string, password: string) => Promise<void>
@@ -34,34 +35,24 @@ const Login = (props: LoginProps): JSX.Element => {
 	
 	return (
 		<Container>
-			<IoLogInOutline size={'70'} className={'mb-3'} />
-			<FloatingLabel
-				controlId="floatingInput"
-				label="아이디"
-				className="mb-3"
-			>
-				<Form.Control
-					type="email"
-					placeholder="id"
-					value={loginId}
-					onChange={(e) => setLoginId(e.target.value)}
-				/>
-			</FloatingLabel>
-			<FloatingLabel
-				controlId="floatingPassword"
-				label="비밀번호"
-				className={'mb-5'}
-			>
-				<Form.Control
-					type="password"
-					placeholder="password"
-					value={password}
-					onKeyPress={(e) => HtmlEventUtil.inputEnterEventHandler(e, onClick)}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-			</FloatingLabel>
+			<Icon icon={faArrowRightToBracket} size={'4x'} className={'mb-4'} />
+			<Input
+				type={'email'}
+				value={loginId}
+				setValue={setLoginId}
+				placeholder={'아이디'}
+				wrapperClassName={'mb-3'}
+			/>
+			<Input
+				type={'password'}
+				value={password}
+				setValue={setPassword}
+				placeholder={'비밀번호'}
+				wrapperClassName={'mb-5'}
+				onEnter={onClick}
+			/>
 			<div className={classNames('d-grid', 'gap-2')}>
-				<Button variant="primary" onClick={onClick}>로그인</Button>
+				<Button text={'로그인'} onClick={onClick} />
 			</div>
 		</Container>
 	)

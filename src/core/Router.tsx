@@ -1,5 +1,4 @@
-import {BrowserRouter} from 'react-router-dom';
-import {Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainContainer from '@/container/MainContainer';
 import Path from '@/models/path.model';
 import LoginContainer from '@/container/LoginContainer';

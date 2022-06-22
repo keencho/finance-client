@@ -11,7 +11,6 @@ import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
 import HeaderHeightAtom from '@/recoil/header-height.atom';
-import {AiOutlineDollarCircle} from 'react-icons/all';
 import {
   BtnToggleThemeMode,
   StyledNavbar,
@@ -24,6 +23,9 @@ import {
 import ThemeModeAtom from '@/recoil/theme-mode.atom';
 import Path from '@/models/path.model';
 import classNames from 'classnames';
+import {faMoneyBill1} from '@fortawesome/free-regular-svg-icons';
+import Icon from '@/components/common/Icon';
+import {themeModeKey} from '@/models/element/theme.model';
 
 const Header = (): JSX.Element => {
   
@@ -65,7 +67,10 @@ const Header = (): JSX.Element => {
   }
   
   const controlTheme = () => {
-    setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+    const newMode = themeMode === 'light' ? 'dark' : 'light'
+    
+    window.localStorage.setItem(themeModeKey, newMode);
+    setThemeMode(newMode);
   }
   
   useEffect(() => {
@@ -84,8 +89,8 @@ const Header = (): JSX.Element => {
   return (
     <StyledNavbar variant={'dark'} expand={'lg'} sticky={'top'} ref={headerRef}>
       <Container>
-        <StyledNavbarBrand as={Link} to={'/'} >
-          <AiOutlineDollarCircle size={50} textDecoration={'none'} />
+        <StyledNavbarBrand as={Link} to={Path.INDEX} >
+          <Icon icon={faMoneyBill1} size={'3x'} color={'white'} />
         </StyledNavbarBrand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -95,8 +100,8 @@ const Header = (): JSX.Element => {
           </Nav>
           <div className={classNames('d-flex', 'align-items-center')}>
             <BtnToggleThemeMode onClick={controlTheme}>
-              <ToggleThemeSun visible={themeMode === 'dark'} />
-              <ToggleThemeMoon visible={themeMode === 'light'}>
+              <ToggleThemeSun visible={themeMode === 'light'} />
+              <ToggleThemeMoon visible={themeMode === 'dark'}>
                 <ToggleThemeMoonStar small={false}/>
                 <ToggleThemeMoonStar small={true}/>
               </ToggleThemeMoon>
