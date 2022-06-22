@@ -3,6 +3,6 @@ import Path from '@/models/path.model';
 
 export default class CoinService {
 	static async getBullMarket(): Promise<any> {
-		return await AxiosUtil.request('GET', Path.Api.BULL_MARKET);
+		return await AxiosUtil.request('GET', '/coin/v1/bull-market');
 	}
 }

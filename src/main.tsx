@@ -2,13 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import {RecoilRoot} from 'recoil';
-import {BrowserRouter} from 'react-router-dom';
 import Toast from '@/components/common/Toast';
-import {Routes} from '@/routes';
-import Auth from '@/auth';
+import Auth from '@/core/Auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Spinner from '@/components/common/Spinner';
-import RecoilNexus from '@/components/common/RecoilNexus';
+import RecoilNexus from '@/core/RecoilNexus';
+import Router from '@/core/Router';
 
 
 ReactDOM.render(
@@ -18,9 +17,7 @@ ReactDOM.render(
       <Spinner />
       <Toast />
       <Auth>
-        <BrowserRouter>
-          <Routes />
-        </BrowserRouter>
+        <Router />
       </Auth>
     </RecoilRoot>
   </React.StrictMode>,

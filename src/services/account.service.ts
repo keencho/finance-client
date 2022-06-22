@@ -27,9 +27,11 @@ export default class AccountService {
     }
 
     await AxiosUtil.responseHandler(
-      AxiosUtil.request('POST', Path.Api.CHECK_AUTH),
-      onSuccess,
-      onFailure
+      AxiosUtil.request('POST', '/account/v1/check-auth'),
+      {
+        onSuccess,
+        onFailure
+      }
     )
   }
   
@@ -38,10 +40,10 @@ export default class AccountService {
       login_id: loginId,
       password: password
     }
-    return await AxiosUtil.request('POST', Path.Api.LOGIN, params);
+    return await AxiosUtil.request('POST', '/account/v1/login', params);
   }
   
   static async logout(): Promise<any> {
-    return await AxiosUtil.request('POST', Path.Api.LOGOUT);
+    return await AxiosUtil.request('POST', '/account/v1/logout');
   }
 }

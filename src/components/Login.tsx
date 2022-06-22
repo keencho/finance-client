@@ -1,13 +1,13 @@
-import style from '@/styles/login.module.scss';
 import {useState} from 'react';
 import StringUtils from '@/utils/string.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import {useSetRecoilState} from 'recoil';
 import {Button, FloatingLabel, Form} from 'react-bootstrap';
-import clsx from 'clsx';
 import {IoLogInOutline} from 'react-icons/all';
 import HtmlEventUtil from '@/utils/html-event.util';
+import classNames from 'classnames';
+import {Container} from '@/components/Login.styled';
 
 interface LoginProps {
 	login: (loginId: string, password: string) => Promise<void>
@@ -33,10 +33,8 @@ const Login = (props: LoginProps): JSX.Element => {
 	}
 	
 	return (
-		<div className={style.container}>
-			<div className={style.iconLogin}>
-				<IoLogInOutline size={'70'} />
-			</div>
+		<Container>
+			<IoLogInOutline size={'70'} className={'mb-3'} />
 			<FloatingLabel
 				controlId="floatingInput"
 				label="아이디"
@@ -52,6 +50,7 @@ const Login = (props: LoginProps): JSX.Element => {
 			<FloatingLabel
 				controlId="floatingPassword"
 				label="비밀번호"
+				className={'mb-5'}
 			>
 				<Form.Control
 					type="password"
@@ -61,10 +60,10 @@ const Login = (props: LoginProps): JSX.Element => {
 					onChange={(e) => setPassword(e.target.value)}
 				/>
 			</FloatingLabel>
-			<div className={clsx("d-grid gap-2", style.btnLogin)}>
+			<div className={classNames('d-grid', 'gap-2')}>
 				<Button variant="primary" onClick={onClick}>로그인</Button>
 			</div>
-		</div>
+		</Container>
 	)
 }
 

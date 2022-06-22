@@ -2,10 +2,11 @@ import {useEffect, useState} from 'react';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import ToastAtom from '@/recoil/toast.atom';
-import style from '@/styles/toast.module.scss'
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import {Alert} from 'react-bootstrap';
 import {FaInfoCircle} from 'react-icons/all';
+import {Container} from '@/components/common/Toast.styled';
+import classNames from 'classnames';
 
 interface ToastProps {
 	show: boolean,
@@ -71,7 +72,7 @@ const Toast = (): JSX.Element => {
 	}, [toastRequest])
 	
 	useEffect(() => {
-		if (toastProps.show === true) {
+		if (toastProps.show) {
 			setTimeout(() => {
 				setToastProps({
 					show: false,
@@ -92,18 +93,12 @@ const Toast = (): JSX.Element => {
 	}, []);
 	
 	return (
-		<div
-			style={{
-				opacity: toastProps.show === true ? 1 : 0,
-				zIndex: toastProps.show === true ? 9999 : -1
-			}}
-			className={style.container}
-		>
-			<Alert variant={toastProps.variant} style={{ display: 'flex', alignItems: 'center'}}>
+		<Container show={toastProps.show}>
+			<Alert variant={toastProps.variant} className={classNames('d-flex', 'align-items-center')}>
 				<FaInfoCircle/>
-				<span style={{ marginLeft: '10px' }}>{toastProps.message}</span>
+				<span className={'ms-2'}>{toastProps.message}</span>
 			</Alert>
-		</div>
+		</Container>
 	)
 }
 

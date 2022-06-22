@@ -1,23 +1,39 @@
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import AuthAccountModel from '@/models/auth/auth-account.model';
 import AccountAtom from '@/recoil/account.atom';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import AuthStatus from '@/models/auth/auth-status.model';
-import {useNavigate} from 'react-router-dom';
-import Path from '@/models/path.model';
+import {Link, useNavigate} from 'react-router-dom';
 import AccountService from '@/services/account.service';
 import AxiosUtil from '@/utils/axios.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
 import ToastAtom from '@/recoil/toast.atom';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
-import style from '@/styles/header.module.scss'
+import HeaderHeightAtom from '@/recoil/header-height.atom';
+import {AiOutlineDollarCircle} from 'react-icons/all';
+import {
+  BtnToggleThemeMode,
+  StyledNavbar,
+  StyledNavbarBrand,
+  StyledNavLink,
+  ToggleThemeMoon,
+  ToggleThemeMoonStar,
+  ToggleThemeSun
+} from '@/components/common/Header.styled';
+import ThemeModeAtom from '@/recoil/theme-mode.atom';
+import Path from '@/models/path.model';
+import classNames from 'classnames';
 
 const Header = (): JSX.Element => {
   
+  // @ts-ignore
+  const headerRef = useRef<HTMLElement>(undefined);
+  const setHeaderHeight = useSetRecoilState<number>(HeaderHeightAtom);
   const accountModel = useRecoilValue<AuthAccountModel>(AccountAtom);
   const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom);
   const setToastState = useSetRecoilState<ToastRequestModel | undefined>(ToastAtom);
+  const [themeMode, setThemeMode] = useRecoilState(ThemeModeAtom);
   
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const navigate = useNavigate();
@@ -41,9 +57,15 @@ const Header = (): JSX.Element => {
 
     await AxiosUtil.responseHandler(
       AccountService.logout(),
-      onSuccess,
-      onFailure
+      {
+        onSuccess,
+        onFailure
+      }
     )
+  }
+  
+  const controlTheme = () => {
+    setThemeMode(themeMode === 'light' ? 'dark' : 'light')
   }
   
   useEffect(() => {
@@ -55,32 +77,44 @@ const Header = (): JSX.Element => {
     
   }, [accountModel])
   
+  useEffect(() => {
+    setHeaderHeight(headerRef.current.offsetHeight);
+  }, [headerRef])
+  
   return (
-    <Navbar bg="dark" variant="dark" className={style.container}>
+    <StyledNavbar variant={'dark'} expand={'lg'} sticky={'top'} ref={headerRef}>
       <Container>
-        <Navbar.Brand href="#home">Finance</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link>코인</Nav.Link>
-          <Nav.Link>주식</Nav.Link>
-        </Nav>
-          {
-            isAuthenticated === true
-              ?
-              <>
-                <span style={{ color: '#fff', marginRight: '30px'}}>{accountModel.account?.name}</span>
-                <Button variant="outline-light" onClick={onClickBtnLogout}>
-                  로그아웃
+        <StyledNavbarBrand as={Link} to={'/'} >
+          <AiOutlineDollarCircle size={50} textDecoration={'none'} />
+        </StyledNavbarBrand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <StyledNavLink as={Nav.Link}>코인</StyledNavLink>
+            <StyledNavLink as={Nav.Link}>주식</StyledNavLink>
+          </Nav>
+          <div className={classNames('d-flex', 'align-items-center')}>
+            <BtnToggleThemeMode onClick={controlTheme}>
+              <ToggleThemeSun visible={themeMode === 'dark'} />
+              <ToggleThemeMoon visible={themeMode === 'light'}>
+                <ToggleThemeMoonStar small={false}/>
+                <ToggleThemeMoonStar small={true}/>
+              </ToggleThemeMoon>
+            </BtnToggleThemeMode>
+            <div className={'ms-2'}>
+              {
+                isAuthenticated && <span style={{color: '#fff', marginRight: '30px'}}>{accountModel.account?.name}</span>
+              }
+              {
+                <Button size={'sm'} variant="outline-light" onClick={isAuthenticated ? onClickBtnLogout : () => navigate(Path.LOGIN)}>
+                  {isAuthenticated ? '로그아웃' : '로그인'}
                 </Button>
-              </>
-              :
-              <>
-                <Button variant="outline-light" onClick={() => navigate(Path.Web.LOGIN)}>
-                  로그인
-                </Button>
-              </>
-          }
+              }
+            </div>
+          </div>
+        </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </StyledNavbar>
   )
 }
 
