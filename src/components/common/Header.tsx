@@ -36,7 +36,6 @@ const Header = (): JSX.Element => {
   const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom);
   const setToastState = useSetRecoilState<ToastRequestModel | undefined>(ToastAtom);
   const [themeMode, setThemeMode] = useRecoilState(ThemeModeAtom);
-  
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const navigate = useNavigate();
   

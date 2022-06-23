@@ -1,4 +1,3 @@
-import Path from '@/models/path.model';
 import axios, {AxiosResponse, Method} from 'axios';
 import ResponseError from '@/error/response.error';
 import {setRecoil} from '@/core/RecoilNexus';
@@ -22,37 +21,37 @@ export default class AxiosUtil {
     return undefined
   }
   
-  public static async get(requestURL: string): Promise<any> {
-    const result: AxiosResponse = await axios.get(requestURL);
-    return result.data;
+  public static async get(requestURL: string): Promise<AxiosResponse> {
+    return await axios.get(requestURL);
   }
   
-  public static async post(requestURL: string, params?: any): Promise<any> {
-    const result: AxiosResponse = await axios.post(requestURL, params);
-    return result.data;
+  public static async post(requestURL: string, params?: any): Promise<AxiosResponse> {
+    return await axios.post(requestURL, params);
   }
   
   // ------------------------------------------------------------------------------ //
   
-  public static async responseHandler(request: Promise<any>, handler?: { onSuccess?: (data: any) => void | Promise<void>, onFailure?: (message: string) => void | Promise<void> }): Promise<void> {
+  public static async responseHandler(request: Promise<any>, options?: { onSuccess?: (data: any) => void | Promise<void>, onFailure?: (message: string) => void | Promise<void>, hideSpinner?: boolean }): Promise<void> {
+    const showSpinner = !options || options.hideSpinner === undefined || !options.hideSpinner;
     try {
-      setRecoil(SpinnerAtom, true);
+      if (showSpinner) {
+        setRecoil(SpinnerAtom, true);
+      }
       
       const res = await request;
-      
-      if (res.success === false) {
-        throw new ResponseError(res.message)
-      }
   
-      if (handler && typeof handler.onSuccess === 'function') {
-        handler.onSuccess(res.data);
+      if (options && typeof options.onSuccess === 'function') {
+        options.onSuccess(res.data);
       }
     } catch (e: any) {
-      if (handler && typeof handler.onFailure === 'function') {
-        handler.onFailure(e.message);
+      if (options && typeof options.onFailure === 'function') {
+        // 서버의 exception 타입 참조
+        options.onFailure(e.response.data.message);
       }
     } finally {
-      setRecoil(SpinnerAtom, false)
+      if (showSpinner) {
+        setRecoil(SpinnerAtom, false)
+      }
     }
   }
 }
