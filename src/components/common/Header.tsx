@@ -1,4 +1,4 @@
-import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import AuthAccountModel from '@/models/auth/auth-account.model';
 import AccountAtom from '@/recoil/account.atom';
@@ -14,7 +14,7 @@ import HeaderHeightAtom from '@/recoil/header-height.atom';
 import {
   BtnToggleThemeMode,
   StyledNavbar,
-  StyledNavbarBrand,
+  StyledNavbarBrand, StyledNavDropdown, StyledNavDropdownItem,
   StyledNavLink,
   ToggleThemeMoon,
   ToggleThemeMoonStar,
@@ -49,7 +49,6 @@ const Header = (): JSX.Element => {
     }
 
     const onFailure = async(message: string) => {
-      await AccountService.checkAndSetAuth(setAccountModel)
       setToastState({
         type: ToastTypeModel.ERROR,
         message: message
@@ -94,8 +93,11 @@ const Header = (): JSX.Element => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <StyledNavLink as={Nav.Link}>코인</StyledNavLink>
-            <StyledNavLink as={Nav.Link}>주식</StyledNavLink>
+            <StyledNavDropdown title={'코인'}>
+              <StyledNavDropdownItem as={NavDropdown.Item} onClick={() => navigate(Path.Coin.BULL_MARKET)}>
+                상승장
+              </StyledNavDropdownItem>
+            </StyledNavDropdown>
           </Nav>
           <div className={classNames('d-flex', 'align-items-center')}>
             <BtnToggleThemeMode onClick={controlTheme}>

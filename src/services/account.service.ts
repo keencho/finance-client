@@ -14,7 +14,8 @@ export default class AccountService {
         account: {
           id: data.id,
           loginId: data.login_id,
-          name: data.name
+          name: data.name,
+          type: data.type
         }
       })
     }

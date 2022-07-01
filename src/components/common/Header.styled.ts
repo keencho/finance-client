@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Navbar} from 'react-bootstrap';
+import {Navbar, NavDropdown} from 'react-bootstrap';
 
 export const StyledNavbar = styled(Navbar)`
   background-color: ${props => props.theme.color.headerBackgroundColor};
@@ -7,6 +7,14 @@ export const StyledNavbar = styled(Navbar)`
 
 export const StyledNavbarBrand = styled(Navbar.Brand)`
   margin-right: 15px;
+`
+
+export const StyledNavDropdown = styled(NavDropdown)`
+  font-size: 14px;
+`
+
+export const StyledNavDropdownItem = styled(NavDropdown.Item)`
+  font-size: 0.75rem;
 `
 
 export const StyledNavLink = styled.div`

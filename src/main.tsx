@@ -9,6 +9,7 @@ import Router from '@/core/Router';
 import CustomThemeProvider from '@/core/CustomThemeProvider';
 import GlobalStyle from '@/core/GlobalStyle';
 import {createRoot} from 'react-dom/client';
+import './bootstrap.scss'
 
 const root = createRoot(document.getElementById('root')!);
 

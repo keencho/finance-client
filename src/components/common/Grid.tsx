@@ -21,10 +21,11 @@ const Grid = (props: Props): JSX.Element => {
   }
   
   return (
-    <Container style={{
-      paddingTop: `${DEFAULT_PADDING}px`,
-      paddingBottom: `${DEFAULT_PADDING}px`
-    }}>
+    <Container
+      style={{
+        paddingTop: `${DEFAULT_PADDING}px`,
+        paddingBottom: `${DEFAULT_PADDING}px`
+      }}>
       <Card border={theme.mode} style={{ height: cardHeight() }}>
         <Card.Header
           bsPrefix={'card-header py-2'}

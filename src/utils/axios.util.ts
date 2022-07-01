@@ -1,5 +1,5 @@
 import axios, {AxiosResponse, Method} from 'axios';
-import ResponseError from '@/error/response.error';
+import ResponseError from '@/core/response.error';
 import {setRecoil} from '@/core/RecoilNexus';
 import SpinnerAtom from '@/recoil/spinner.atom';
 

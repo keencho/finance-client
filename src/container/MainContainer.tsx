@@ -7,7 +7,7 @@ const MainContainer = (): JSX.Element => {
       <Header />
       <Grid
         headerText={'메인페이지'}
-        bodyNode={<div>dma.</div>}
+        bodyNode={<>메인페이지 입니다.</>}
       />
     </>
   )
