@@ -1,100 +1,21 @@
-import {useEffect, useReducer, useState} from 'react';
-import {ListGroup} from 'react-bootstrap';
-
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
 import Table from '@/components/table/Table';
+import {useEffect} from 'react';
+import {TableColumDefModel} from '@/models/table/table.model';
+import useTable from '@/hooks/useTable';
 
-type Person = {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
-}
-
-const defaultData: Person[] = [
+const columnDef: TableColumDefModel[] = [
   {
-    firstName: 'tanner',
-    lastName: 'linsley',
-    age: 24,
-    visits: 100,
-    status: 'In Relationship',
-    progress: 50,
+    header: '코드',
+    accessor: 'code'
   },
   {
-    firstName: 'tandy',
-    lastName: 'miller',
-    age: 40,
-    visits: 40,
-    status: 'Single',
-    progress: 80,
+    header: '한글명',
+    accessor: 'korean_name'
   },
   {
-    firstName: 'joe',
-    lastName: 'dirte',
-    age: 45,
-    visits: 20,
-    status: 'Complicated',
-    progress: 10,
-  },
-]
-
-const columns: ColumnDef<Person>[] = [
-  {
-    header: 'Name',
-    footer: props => props.column.id,
-    columns: [
-      {
-        accessorKey: 'firstName',
-        cell: info => info.getValue(),
-        footer: props => props.column.id,
-      },
-      {
-        accessorFn: row => row.lastName,
-        id: 'lastName',
-        cell: info => info.getValue(),
-        header: () => <span>Last Name</span>,
-        footer: props => props.column.id,
-      },
-    ],
-  },
-  {
-    header: 'Info',
-    footer: props => props.column.id,
-    columns: [
-      {
-        accessorKey: 'age',
-        header: () => 'Age',
-        footer: props => props.column.id,
-      },
-      {
-        header: 'More Info',
-        columns: [
-          {
-            accessorKey: 'visits',
-            header: () => <span>Visits</span>,
-            footer: props => props.column.id,
-          },
-          {
-            accessorKey: 'status',
-            header: 'Status',
-            footer: props => props.column.id,
-          },
-          {
-            accessorKey: 'progress',
-            header: 'Profile Progress',
-            footer: props => props.column.id,
-          },
-        ],
-      },
-    ],
-  },
+    header: '영문명',
+    accessor: 'english_name'
+  }
 ]
 
 interface Props {
@@ -102,7 +23,15 @@ interface Props {
 }
 
 const BullMarket = (props: Props): JSX.Element => {
-  return (<Table />)
+  
+  const table = useTable(
+    {
+      data: props.tickers,
+      usePaging: false,
+      columnDef: columnDef
+    })
+  
+  return <Table {...table} />
 }
 
 export default BullMarket;

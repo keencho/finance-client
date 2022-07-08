@@ -3,7 +3,7 @@ import AxiosUtil from '@/utils/axios.util';
 
 // 데이터를 긁어올때만 사용될 hook
 const useDataFetch = (request: Promise<any>) => {
-  const [data, setData] = useState<any>(undefined);
+  const [data, setData] = useState<any>([]);
   
   const doFetch = async() => {
     
