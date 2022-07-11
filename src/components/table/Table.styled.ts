@@ -23,7 +23,7 @@ export const TableResizer = styled.div`
   touch-action: none;
 	
 	&:hover {
-		background-color: blue;
+		background-color: gray;
 	}
 `
 

@@ -1,15 +1,9 @@
-import {
-  createTable,
-  useReactTable,
-  ColumnResizeMode,
-  getCoreRowModel,
-  ColumnDef,
-  flexRender,
-} from '@tanstack/react-table'
-import {useEffect, useReducer, useState} from 'react';
+import {ColumnResizeMode, flexRender, getCoreRowModel, useReactTable} from '@tanstack/react-table'
+import {useEffect, useState} from 'react';
 import {BootstrapTable, TableHead, TableResizer, TableWrapper} from '@/components/table/Table.styled';
 import {useTheme} from 'styled-components';
 import {TableModel} from '@/models/table/table.model';
+import {CoreHeaderGroup} from '@tanstack/table-core';
 
 const Table = (props: TableModel) => {
   
@@ -47,7 +41,7 @@ const Table = (props: TableModel) => {
       >
         <TableHead>
         {
-          table.getHeaderGroups().map(headerGroup => (
+          table.getHeaderGroups().map((headerGroup: CoreHeaderGroup<any>) => (
             <tr key={headerGroup.id}>
               {
                 headerGroup.headers.map(header => (
