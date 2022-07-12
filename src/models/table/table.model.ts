@@ -6,6 +6,10 @@ export interface TableHookModel {
 	
 	usePaging?: boolean
 	size?: 'sm' | 'lg'
+	countOption?: {
+		countData?: boolean
+		count?: number
+	}
 }
 
 export interface TableColumDefModel {
@@ -19,4 +23,8 @@ export interface TableModel {
 	
 	usePaging: boolean
 	size: 'sm' | 'lg'
+	countOption: {
+		show: boolean
+		count: number
+	}
 }

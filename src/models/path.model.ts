@@ -5,6 +5,7 @@ export default class Path {
 	static Coin = class {
 		private static CONTEXT_PATH = '/coin';
 		
+		static TICKERS = this.CONTEXT_PATH + '/tickers'	// 전체 티커 조회
 		static BULL_MARKET = this.CONTEXT_PATH + '/bull-market'	// 상승장
 		
 	}

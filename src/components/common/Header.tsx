@@ -94,9 +94,8 @@ const Header = (): JSX.Element => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <StyledNavDropdown title={'코인'}>
-              <StyledNavDropdownItem as={NavDropdown.Item} onClick={() => navigate(Path.Coin.BULL_MARKET)}>
-                상승장
-              </StyledNavDropdownItem>
+              <StyledNavDropdownItem as={NavDropdown.Item} onClick={() => navigate(Path.Coin.TICKERS)}>티커</StyledNavDropdownItem>
+              <StyledNavDropdownItem as={NavDropdown.Item} onClick={() => navigate(Path.Coin.BULL_MARKET)}>상승장</StyledNavDropdownItem>
             </StyledNavDropdown>
           </Nav>
           <div className={classNames('d-flex', 'align-items-center')}>

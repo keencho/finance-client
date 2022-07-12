@@ -2,7 +2,7 @@ import {Cell, ColumnResizeMode, flexRender, getCoreRowModel, Row, useReactTable}
 import {useEffect, useState} from 'react';
 import {
   BootstrapTable,
-  TableBodyTd,
+  TableBodyTd, TableContainer,
   TableHead,
   TableHeadTh,
   TableHeadTr,
@@ -37,83 +37,88 @@ const Table = (props: TableModel) => {
   }, [props.data])
   
   return (
-    <TableWrapper>
-      <BootstrapTable
-        striped bordered hover variant={theme.mode}
-        size={props.size}
-        {...{
-          style: {
-            width: table.getCenterTotalSize()
-          },
-        }}
-      >
-        <TableHead>
-        {
-          table.getHeaderGroups().map((headerGroup: CoreHeaderGroup<any>) => (
-            <TableHeadTr key={headerGroup.id}>
-              {
-                headerGroup.headers.map(header => (
-                  <TableHeadTh
-                    {...{
-                      key: header.id,
-                      colSpan: header.colSpan,
-                      style: {
-                        width: header.getSize(),
-                        position: 'relative'
-                      }
-                    }}
-                    >
-                    {
-                      header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                        )
-                    }
-                    <TableResizer
+    <TableContainer>
+      <TableWrapper>
+        <BootstrapTable
+          striped bordered hover variant={theme.mode}
+          size={props.size}
+          {...{
+            style: {
+              width: table.getCenterTotalSize()
+            },
+          }}
+        >
+          <TableHead>
+          {
+            table.getHeaderGroups().map((headerGroup: CoreHeaderGroup<any>) => (
+              <TableHeadTr key={headerGroup.id}>
+                {
+                  headerGroup.headers.map(header => (
+                    <TableHeadTh
                       {...{
-                        onMouseDown: header.getResizeHandler(),
-                        onTouchStart: header.getResizeHandler(),
+                        key: header.id,
+                        colSpan: header.colSpan,
                         style: {
-                          transform:
-                            columnResizeMode === 'onEnd' &&
-                            header.column.getIsResizing()
-                              ? `translateX(${
-                                table.getState().columnSizingInfo.deltaOffset
-                              }px)`
-                              : ''
-                          ,
-                        },
+                          width: header.getSize(),
+                          position: 'relative'
+                        }
                       }}
-                    />
-                  </TableHeadTh>
-                ))
-              }
-            </TableHeadTr>
-          ))
-        }
-        </TableHead>
-        <tbody>
-        {table.getRowModel().rows.map((row: Row<any>) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
-              <TableBodyTd
-                {...{
-                  key: cell.id,
-                  style: {
-                    width: cell.column.getSize(),
-                  },
-                }}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableBodyTd>
-            ))}
-          </tr>
-        ))}
-        </tbody>
-      </BootstrapTable>
-    </TableWrapper>
+                      >
+                      {
+                        header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                          )
+                      }
+                      <TableResizer
+                        {...{
+                          onMouseDown: header.getResizeHandler(),
+                          onTouchStart: header.getResizeHandler(),
+                          style: {
+                            transform:
+                              columnResizeMode === 'onEnd' &&
+                              header.column.getIsResizing()
+                                ? `translateX(${
+                                  table.getState().columnSizingInfo.deltaOffset
+                                }px)`
+                                : ''
+                            ,
+                          },
+                        }}
+                      />
+                    </TableHeadTh>
+                  ))
+                }
+              </TableHeadTr>
+            ))
+          }
+          </TableHead>
+          <tbody>
+          {table.getRowModel().rows.map((row: Row<any>) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
+                <TableBodyTd
+                  {...{
+                    key: cell.id,
+                    style: {
+                      width: cell.column.getSize(),
+                    },
+                  }}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableBodyTd>
+              ))}
+            </tr>
+          ))}
+          </tbody>
+        </BootstrapTable>
+      </TableWrapper>
+      {
+        props.countOption.show && props.countOption.count > 0 && <span style={{ fontSize: '.75rem' }}>전체: {props.countOption.count}개</span>
+      }
+    </TableContainer>
   )
 }
 
