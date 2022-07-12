@@ -1,6 +1,14 @@
-import {ColumnResizeMode, flexRender, getCoreRowModel, useReactTable} from '@tanstack/react-table'
+import {Cell, ColumnResizeMode, flexRender, getCoreRowModel, Row, useReactTable} from '@tanstack/react-table'
 import {useEffect, useState} from 'react';
-import {BootstrapTable, TableHead, TableResizer, TableWrapper} from '@/components/table/Table.styled';
+import {
+  BootstrapTable,
+  TableBodyTd,
+  TableHead,
+  TableHeadTh,
+  TableHeadTr,
+  TableResizer,
+  TableWrapper
+} from '@/components/table/Table.styled';
 import {useTheme} from 'styled-components';
 import {TableModel} from '@/models/table/table.model';
 import {CoreHeaderGroup} from '@tanstack/table-core';
@@ -42,10 +50,10 @@ const Table = (props: TableModel) => {
         <TableHead>
         {
           table.getHeaderGroups().map((headerGroup: CoreHeaderGroup<any>) => (
-            <tr key={headerGroup.id}>
+            <TableHeadTr key={headerGroup.id}>
               {
                 headerGroup.headers.map(header => (
-                  <th
+                  <TableHeadTh
                     {...{
                       key: header.id,
                       colSpan: header.colSpan,
@@ -67,9 +75,6 @@ const Table = (props: TableModel) => {
                       {...{
                         onMouseDown: header.getResizeHandler(),
                         onTouchStart: header.getResizeHandler(),
-                        // className: `resizer ${
-                        //   header.column.getIsResizing() ? 'isResizing' : ''
-                        // }`,
                         style: {
                           transform:
                             columnResizeMode === 'onEnd' &&
@@ -82,18 +87,18 @@ const Table = (props: TableModel) => {
                         },
                       }}
                     />
-                  </th>
+                  </TableHeadTh>
                 ))
               }
-            </tr>
+            </TableHeadTr>
           ))
         }
         </TableHead>
         <tbody>
-        {table.getRowModel().rows.map(row => (
+        {table.getRowModel().rows.map((row: Row<any>) => (
           <tr key={row.id}>
-            {row.getVisibleCells().map(cell => (
-              <td
+            {row.getVisibleCells().map((cell: Cell<any, unknown>) => (
+              <TableBodyTd
                 {...{
                   key: cell.id,
                   style: {
@@ -102,7 +107,7 @@ const Table = (props: TableModel) => {
                 }}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+              </TableBodyTd>
             ))}
           </tr>
         ))}
