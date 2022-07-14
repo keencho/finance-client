@@ -7,32 +7,37 @@ import Table from '@/components/table/Table';
 import TickersColumnDef from '@/models/columndef/tickers.columdef';
 import MultiRowGrid from '@/components/grid/MultiRowGrid';
 import {MultiRowGridCell} from '@/models/grid/multi-row-grid.model';
-
-const gridFormData: MultiRowGridCell[] = [
-  {
-    cell: [
-      {
-        header: '접수일',
-        body: <span>x</span>,
-        lg: 6
-      },
-      {
-        header: '출발 터미널',
-        body: <span>x</span>,
-        lg: 3
-      },
-      {
-        header: '도착 터미널',
-        body: <span>x</span>,
-        lg: 3
-      },
-    ]
-  }
-]
+import FloatingLabel from '@/components/common/element/FloatingLabel';
+import {useState} from 'react';
+import Input from '@/components/common/element/Input';
 
 const TickersContainer = () => {
   
   const tickers = useDataFetch(CoinService.getAllTickers());
+  
+  const [value, setValue] = useState<string>('');
+  
+  const gridFormData: MultiRowGridCell[] = [
+    {
+      cell: [
+        {
+          header: '코드',
+          body: <Input placeHolder={'코드명'} />,
+          lg: 6
+        },
+        {
+          header: '한글명',
+          body: <Input placeHolder={'한글명'} />,
+          lg: 3
+        },
+        {
+          header: '영문명',
+          body: <Input placeHolder={'영문명'} />,
+          lg: 3
+        },
+      ]
+    }
+  ]
   
   return (
     <>

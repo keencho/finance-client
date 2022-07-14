@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 
 export const StyledNavbar = styled(Navbar)`
@@ -54,7 +54,7 @@ export const ToggleThemeSun = styled.div<{ visible: boolean }>`
     transform: rotate(45deg);
   }
 
-  ${props => props.visible === true && `
+  ${props => props.visible === true && css`
     pointer-events: auto;
     opacity: 1;
     transform: scale(1) rotate(180deg);
@@ -105,7 +105,7 @@ export const ToggleThemeMoonStar = styled.div<{ small: boolean }>`
     content: '';
   }
   
-  ${props => props.small === true && `
+  ${props => props.small === true && css`
     transform: scale(0.35) rotate(35deg);
     position: relative;
     top: 50%;
@@ -129,7 +129,7 @@ export const ToggleThemeMoon = styled.div<{ visible: boolean }>`
   transform: scale(0.3) rotate(65deg);
   transition: transform 0.3s ease-in, opacity 0.2s ease-in 0.1s;
 
-  ${props => props.visible === true && `
+  ${props => props.visible === true && css`
     pointer-events: auto;
     opacity: 1;
     transform: scale(1) rotate(0deg);

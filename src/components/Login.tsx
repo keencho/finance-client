@@ -8,7 +8,7 @@ import {Container} from '@/components/Login.styled';
 import Icon from '@/components/common/Icon';
 import {faArrowRightToBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightToBracket';
 import Button from '@/components/common/element/Button';
-import Input from '@/components/common/element/Input';
+import FloatingLabel from '@/components/common/element/FloatingLabel';
 
 interface LoginProps {
 	login: (loginId: string, password: string) => Promise<void>
@@ -36,14 +36,14 @@ const Login = (props: LoginProps): JSX.Element => {
 	return (
 		<Container>
 			<Icon icon={faArrowRightToBracket} size={'4x'} className={'mb-4'} />
-			<Input
+			<FloatingLabel
 				type={'email'}
 				value={loginId}
 				setValue={setLoginId}
 				placeholder={'아이디'}
 				wrapperClassName={'mb-3'}
 			/>
-			<Input
+			<FloatingLabel
 				type={'password'}
 				value={password}
 				setValue={setPassword}

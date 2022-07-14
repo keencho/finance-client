@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 export const Container = styled.div<{ show: boolean }>`
   position: fixed;
@@ -10,7 +10,7 @@ export const Container = styled.div<{ show: boolean }>`
   overflow: auto;
   display: none;
   
-  ${props => props.show && `
+  ${props => props.show && css`
     display: block;
   `}
 `

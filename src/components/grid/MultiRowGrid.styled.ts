@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {Col, Row} from 'react-bootstrap';
 
 export const GridRow = styled(Row)`
@@ -65,7 +65,7 @@ export const GridWrapper = styled.div<StyledSearchFormCellTextProps>`
         line-height: 1.5;
         word-break: break-all;
         
-        ${(props: StyledSearchFormCellTextProps) => props.$ellipsis === true && `
+        ${(props: StyledSearchFormCellTextProps) => props.$ellipsis === true && css`
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
