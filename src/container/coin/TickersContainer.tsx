@@ -5,48 +5,58 @@ import useDataFetch from '@/hooks/useDataFetch';
 import useTable from '@/hooks/useTable';
 import Table from '@/components/table/Table';
 import TickersColumnDef from '@/models/columndef/tickers.columdef';
-import MultiRowGrid from '@/components/grid/MultiRowGrid';
-import {MultiRowGridCell} from '@/models/grid/multi-row-grid.model';
-import FloatingLabel from '@/components/common/element/FloatingLabel';
-import {useState} from 'react';
 import Input from '@/components/common/element/Input';
+import MultiRowGridForm from '@/components/grid/MultiRowGridForm';
+import {useRef} from 'react';
+import useForm from '@/hooks/useForm';
 
 const TickersContainer = () => {
   
   const tickers = useDataFetch(CoinService.getAllTickers());
   
-  const [value, setValue] = useState<string>('');
-  
-  const gridFormData: MultiRowGridCell[] = [
-    {
-      cell: [
-        {
-          header: '코드',
-          body: <Input placeHolder={'코드명'} />,
-          lg: 6
-        },
-        {
-          header: '한글명',
-          body: <Input placeHolder={'한글명'} />,
-          lg: 3
-        },
-        {
-          header: '영문명',
-          body: <Input placeHolder={'영문명'} />,
-          lg: 3
-        },
-      ]
-    }
-  ]
+  const [formProps, fireFormEvent, resetForm] = useForm({
+    data: [
+      {
+        cell: [
+          {
+            header: '코드',
+            body: <Input name={'code'} placeHolder={'코드명'} />,
+            lg: 6
+          },
+          {
+            header: '한글명',
+            body: <Input name={'korean_name'} placeHolder={'한글명'} />,
+            lg: 3
+          },
+          {
+            header: '영문명',
+            body: <Input name={'english_name'} placeHolder={'영문명'} />,
+            lg: 3
+          },
+        ]
+      }
+    ],
+    observedKey: ['code', 'korean_name'],
+    formEvent: (values: object) => {
+      console.log(values);
+    },
+    ref: useRef<HTMLFormElement>(null)
+  })
   
   return (
     <>
       <Header />
       <Grid
         headerText={'티커'}
+        headerActionNode={
+        <>
+          <button onClick={resetForm}>초기화</button>
+          <button onClick={fireFormEvent}>검색</button>
+        </>
+        }
         bodyNode={
           <>
-            <MultiRowGrid data={gridFormData} />
+            <MultiRowGridForm {...formProps} />
             <Table
               {...useTable(
                 {

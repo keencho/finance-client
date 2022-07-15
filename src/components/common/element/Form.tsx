@@ -1,6 +1,14 @@
-const Form = () => {
+import {Form as BootstrapForm} from 'react-bootstrap';
+
+interface Props {
+	children: JSX.Element | JSX.Element[]
+}
+
+const Form = (props: Props) => {
 	return (
-		<div>d.a./</div>
+		<BootstrapForm>
+			{props.children}
+		</BootstrapForm>
 	)
 }
 
