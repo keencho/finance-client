@@ -9,6 +9,7 @@ import Input from '@/components/common/element/Input';
 import MultiRowGridForm from '@/components/grid/MultiRowGridForm';
 import {useRef} from 'react';
 import useForm from '@/hooks/useForm';
+import Button from '@/components/common/element/Button';
 
 const TickersContainer = () => {
   
@@ -50,8 +51,8 @@ const TickersContainer = () => {
         headerText={'티커'}
         headerActionNode={
         <>
-          <button onClick={resetForm}>초기화</button>
-          <button onClick={fireFormEvent}>검색</button>
+          <Button text={'초기화'} onClick={resetForm} />
+          <Button text={'검색'} onClick={fireFormEvent} className={'ms-3'} />
         </>
         }
         bodyNode={

@@ -1,5 +1,4 @@
 import Table from '@/components/table/Table';
-import {useEffect} from 'react';
 import {TableColumDefModel} from '@/models/table/table.model';
 import useTable from '@/hooks/useTable';
 
