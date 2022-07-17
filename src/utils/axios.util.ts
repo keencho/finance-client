@@ -14,6 +14,9 @@ export default class AxiosUtil {
       case 'POST':
       case 'post':
         return await this.post(this.BASE_PATH + path, params);
+      case 'put':
+      case 'PUT':
+        return await this.put(this.BASE_PATH + path, params);
       default:
         break;
     }
@@ -27,6 +30,10 @@ export default class AxiosUtil {
   
   public static async post(requestURL: string, params?: any): Promise<AxiosResponse> {
     return await axios.post(requestURL, params);
+  }
+  
+  public static async put(requestURL: string, params?: any): Promise<AxiosResponse> {
+    return await axios.put(requestURL, params);
   }
   
   // ------------------------------------------------------------------------------ //

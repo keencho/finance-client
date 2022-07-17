@@ -10,6 +10,7 @@ import MultiRowGridForm from '@/components/grid/MultiRowGridForm';
 import {useRef} from 'react';
 import useForm from '@/hooks/useForm';
 import Button from '@/components/common/element/Button';
+import AdminRenderElement from '@/components/common/AdminRenderElement';
 
 const TickersContainer = () => {
   
@@ -51,7 +52,8 @@ const TickersContainer = () => {
         headerText={'티커'}
         headerActionNode={
         <>
-          <Button text={'초기화'} onClick={resetForm} />
+          <AdminRenderElement element={<Button text={'티커 재설정'} onClick={() => CoinService.resetTickers()} className={'me-3'} />} />
+          <Button text={'검색 초기화'} onClick={resetForm} />
           <Button text={'검색'} onClick={fireFormEvent} className={'ms-3'} />
         </>
         }
