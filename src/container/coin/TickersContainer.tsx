@@ -7,14 +7,16 @@ import Table from '@/components/table/Table';
 import TickersColumnDef from '@/models/columndef/tickers.columdef';
 import Input from '@/components/common/element/Input';
 import MultiRowGridForm from '@/components/grid/MultiRowGridForm';
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import useForm from '@/hooks/useForm';
 import Button from '@/components/common/element/Button';
 import AdminRenderElement from '@/components/common/AdminRenderElement';
+import {faArrowRotateRight} from '@fortawesome/free-solid-svg-icons/faArrowRotateRight';
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass';
 
 const TickersContainer = () => {
   
-  const tickers = useDataFetch(CoinService.getAllTickers());
+  const [tickers, doFetch] = useDataFetch((params) => CoinService.getAllTickers(params))
   
   const [formProps, fireFormEvent, resetForm] = useForm({
     data: [
@@ -38,12 +40,14 @@ const TickersContainer = () => {
         ]
       }
     ],
-    observedKey: ['code', 'korean_name'],
-    formEvent: (values: object) => {
-      console.log(values);
-    },
+    observedKey: [],
+    formEvent: doFetch,
     ref: useRef<HTMLFormElement>(null)
   })
+  
+  useEffect(() => {
+    fireFormEvent()
+  }, [])
   
   return (
     <>
@@ -52,9 +56,9 @@ const TickersContainer = () => {
         headerText={'티커'}
         headerActionNode={
         <>
-          <AdminRenderElement element={<Button text={'티커 재설정'} onClick={() => CoinService.resetTickers()} className={'me-3'} />} />
-          <Button text={'검색 초기화'} onClick={resetForm} />
-          <Button text={'검색'} onClick={fireFormEvent} className={'ms-3'} />
+          <AdminRenderElement element={<Button text={'티커 재설정'} onClick={() => CoinService.resetTickers()} className={'me-2'} />} />
+          <Button text={'검색 초기화'} onClick={() => { resetForm(); fireFormEvent(); }} iconProps={{ icon: faArrowRotateRight }} />
+          <Button text={'검색'} onClick={fireFormEvent} className={'ms-2'} iconProps={{ icon: faMagnifyingGlass }} />
         </>
         }
         bodyNode={

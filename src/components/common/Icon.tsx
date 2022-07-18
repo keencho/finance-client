@@ -2,14 +2,14 @@ import {IconProp, SizeProp} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useTheme} from 'styled-components';
 
-interface Props {
+export interface IconProps {
   icon: IconProp
   color?: string
   size?: SizeProp
   className?: string
 }
 
-const Icon = (props: Props): JSX.Element => {
+export const Icon = (props: IconProps): JSX.Element => {
   const theme = useTheme();
   
   const getColor = () => {
@@ -22,5 +22,3 @@ const Icon = (props: Props): JSX.Element => {
   
   return <FontAwesomeIcon icon={props.icon} size={props.size ?? '2x'} color={getColor()} className={props.className}  />
 }
-
-export default Icon

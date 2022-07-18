@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 import ToastRequestModel from '@/models/recoil/toast-request.model';
 import ToastAtom from '@/recoil/toast.atom';
@@ -13,6 +13,7 @@ import Login from '@/components/Login';
 const LoginContainer = (): JSX.Element => {
   
   const navigate = useNavigate()
+  const { state }: any = useLocation()
   
   const setToastRequest = useSetRecoilState<ToastRequestModel | undefined>(ToastAtom);
   const setAccountModel = useSetRecoilState<AuthAccountModel>(AccountAtom)
@@ -21,6 +22,10 @@ const LoginContainer = (): JSX.Element => {
     
     const onSuccess = async() => {
       await AccountService.checkAndSetAuth(setAccountModel);
+      if (state && state.location) {
+        navigate(state.location);
+        return;
+      }
       navigate(Path.INDEX)
     }
     

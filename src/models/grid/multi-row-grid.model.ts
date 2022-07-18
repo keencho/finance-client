@@ -18,5 +18,5 @@ export interface MultiRowGridModel {
 
 export interface MultiRowGridFormModel extends MultiRowGridModel {
 	observedKey?: string[]
-	formEvent: (values: object) => void
+	formEvent: (values: Record<string, any>) => void
 }

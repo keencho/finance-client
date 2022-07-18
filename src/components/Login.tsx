@@ -5,7 +5,7 @@ import ToastAtom from '@/recoil/toast.atom';
 import {useSetRecoilState} from 'recoil';
 import classNames from 'classnames';
 import {Container} from '@/components/Login.styled';
-import Icon from '@/components/common/Icon';
+import {Icon} from '@/components/common/Icon';
 import {faArrowRightToBracket} from '@fortawesome/free-solid-svg-icons/faArrowRightToBracket';
 import Button from '@/components/common/element/Button';
 import FloatingLabel from '@/components/common/element/FloatingLabel';

@@ -4,8 +4,8 @@ export default class CoinService {
 	
 	static BASE_URL = '/coin/v1';
 	
-	static getAllTickers(): Promise<any> {
-		return AxiosUtil.request('GET', `${this.BASE_URL}/tickers`);
+	static getAllTickers(params?: Record<string, any>): Promise<any> {
+		return AxiosUtil.request('GET', `${this.BASE_URL}/tickers`, params);
 	}
 	
 	static resetTickers(): void {

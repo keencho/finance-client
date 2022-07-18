@@ -4,7 +4,7 @@ import AuthAccountModel from '@/models/auth/auth-account.model';
 import AccountAtom from '@/recoil/account.atom';
 import {useEffect, useRef, useState} from 'react';
 import AuthStatus from '@/models/auth/auth-status.model';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import AccountService from '@/services/account.service';
 import AxiosUtil from '@/utils/axios.util';
 import ToastTypeModel from '@/models/recoil/toast-type.model';
@@ -24,7 +24,7 @@ import ThemeModeAtom from '@/recoil/theme-mode.atom';
 import Path from '@/models/path.model';
 import classNames from 'classnames';
 import {faMoneyBill1} from '@fortawesome/free-regular-svg-icons';
-import Icon from '@/components/common/Icon';
+import {Icon} from '@/components/common/Icon';
 import {themeModeKey} from '@/models/element/theme.model';
 
 const Header = (): JSX.Element => {
@@ -111,8 +111,12 @@ const Header = (): JSX.Element => {
                 isAuthenticated && <span style={{color: '#fff', marginRight: '30px'}}>{accountModel.account?.name}</span>
               }
               {
-                <Button size={'sm'} variant="outline-light" onClick={isAuthenticated ? onClickBtnLogout : () => navigate(Path.LOGIN)}>
-                  {isAuthenticated ? '로그아웃' : '로그인'}
+                <Button
+                  size={'sm'}
+                  variant={'outline-light'}
+                  onClick={isAuthenticated ? onClickBtnLogout : () => navigate(Path.LOGIN, { state: { location: window.location.pathname }})}
+                >
+                    {isAuthenticated ? '로그아웃' : '로그인'}
                 </Button>
               }
             </div>

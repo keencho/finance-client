@@ -1,42 +1,42 @@
 import axios, {AxiosResponse, Method} from 'axios';
-import ResponseError from '@/core/response.error';
 import {setRecoil} from '@/core/RecoilNexus';
 import SpinnerAtom from '@/recoil/spinner.atom';
 
 export default class AxiosUtil {
   static BASE_PATH = '/api/finance';
   
-  public static async request(method: Method, path: string, params?: any): Promise<any>{
-    switch (method) {
-      case 'GET':
-      case 'get':
-        return await this.get(this.BASE_PATH + path);
-      case 'POST':
-      case 'post':
-        return await this.post(this.BASE_PATH + path, params);
-      case 'put':
-      case 'PUT':
-        return await this.put(this.BASE_PATH + path, params);
-      default:
-        break;
+  private static get(requestURL: string, params?: any): Promise<AxiosResponse> {
+    if (params) {
+      requestURL += '?' + new URLSearchParams(params).toString();
     }
-    
-    return undefined
+    return axios.get(requestURL);
   }
   
-  public static async get(requestURL: string): Promise<AxiosResponse> {
-    return await axios.get(requestURL);
+  private static post(requestURL: string, params?: any): Promise<AxiosResponse> {
+    return axios.post(requestURL, params);
   }
   
-  public static async post(requestURL: string, params?: any): Promise<AxiosResponse> {
-    return await axios.post(requestURL, params);
-  }
-  
-  public static async put(requestURL: string, params?: any): Promise<AxiosResponse> {
-    return await axios.put(requestURL, params);
+  private static put(requestURL: string, params?: any): Promise<AxiosResponse> {
+    return axios.put(requestURL, params);
   }
   
   // ------------------------------------------------------------------------------ //
+  
+  public static request(method: Method, path: string, params?: any): Promise<any> {
+    switch (method) {
+      case 'GET':
+      case 'get':
+        return this.get(this.BASE_PATH + path, params);
+      case 'POST':
+      case 'post':
+        return this.post(this.BASE_PATH + path, params);
+      case 'put':
+      case 'PUT':
+        return this.put(this.BASE_PATH + path, params);
+      default:
+        throw new Error('unimplemented request method')
+    }
+  }
   
   public static async responseHandler(request: Promise<any>, options?: { onSuccess?: (data: any) => void | Promise<void>, onFailure?: (message: string) => void | Promise<void>, hideSpinner?: boolean }): Promise<void> {
     const showSpinner = !options || options.hideSpinner === undefined || !options.hideSpinner;

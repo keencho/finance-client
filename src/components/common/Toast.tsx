@@ -6,7 +6,7 @@ import ToastTypeModel from '@/models/recoil/toast-type.model';
 import {Alert} from 'react-bootstrap';
 import {Container} from '@/components/common/Toast.styled';
 import classNames from 'classnames';
-import Icon from '@/components/common/Icon';
+import {Icon} from '@/components/common/Icon';
 import {faCircleInfo} from '@fortawesome/free-solid-svg-icons/faCircleInfo';
 
 interface ToastProps {

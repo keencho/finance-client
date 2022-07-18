@@ -9,7 +9,7 @@ export const lightMode: DefaultTheme = {
     headerBackgroundColor: '#2d3847',
     backgroundColor: '#F0F0F0',
     gridBackgroundColor: '#fff',
-    btnVariantColor: 'dark'
+    btnVariantColor: 'outline-dark'
   },
   class: {
     inputBackgroundClass: 'bg-white',

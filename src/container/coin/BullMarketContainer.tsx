@@ -13,7 +13,7 @@ const BullMarketContainer = () => {
       <Header />
       <Grid
         headerText={'상승장'}
-        bodyNode={<BullMarket tickers={tickers} />}
+        bodyNode={<></>}
       />
     </>
   )
