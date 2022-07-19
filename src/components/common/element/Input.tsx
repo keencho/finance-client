@@ -6,20 +6,17 @@ interface Props {
 	placeHolder?: string
 	type?: 'text' | 'email' | 'password'
 	name: string
+	ref?: any
 }
 
 const Input = (props: Props): JSX.Element => {
+	
 	return (
 		<StyledInput
 			type={props.type ?? 'text'}
 			size={props.size}
 			name={props.name}
 			placeholder={props.placeHolder}
-			onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-				if (e.key === 'Enter') {
-					console.log('dma.........')
-				}
-			}}
 		/>
 	)
 }

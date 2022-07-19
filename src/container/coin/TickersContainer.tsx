@@ -24,7 +24,7 @@ const TickersContainer = () => {
         cell: [
           {
             header: '코드',
-            body: <Input name={'code'} placeHolder={'코드명'} />,
+            body: <Input name={'code'} placeHolder={'코드명'}/>,
             lg: 6
           },
           {
@@ -42,7 +42,8 @@ const TickersContainer = () => {
     ],
     observedKey: [],
     formEvent: doFetch,
-    ref: useRef<HTMLFormElement>(null)
+    ref: useRef<HTMLFormElement>(null),
+    fireSubmitEventOnPressEnter: { input: true }
   })
   
   useEffect(() => {

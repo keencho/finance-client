@@ -28,6 +28,7 @@ const Button = (props: Props): JSX.Element => {
           icon={props.iconProps.icon}
           size={props.iconProps.size ?? '1x'}
           className={classNames(props.iconProps.className, 'ms-1')}
+          // 버튼 안쪽의 아이콘은 hover나 기타 css selector을 위해 부모(버튼)의 css를 그대로 상속받는다.
           color={'inherit'} />
       }
     </BootstrapButton>
